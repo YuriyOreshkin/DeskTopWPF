@@ -1,0 +1,87 @@
+﻿<Window x:Class="DeskTopWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeskTopWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowState="Maximized" WindowStyle="None">
+    <Window.Resources>
+        <FontFamily x:Key="mainFontFamily">Segoe UI</FontFamily>
+        <SolidColorBrush x:Key="DarkBlue" Color="#104d97" />
+        <SolidColorBrush x:Key="LightBlue" Color="#0073ba"/>
+        <SolidColorBrush x:Key="DarkGray" Color="#9fA4AA"/>
+        <SolidColorBrush x:Key="LightGray" Color="#E5E5E5"/>
+        <!--<SolidColorBrush x:Key="Error" Color="#AD2806"/>-->
+        <SolidColorBrush x:Key="Error" Color="#CB2400"/>
+        <SolidColorBrush x:Key="Success" Color="#047B38"/>
+        <Style x:Key="navigationFont" TargetType="TextBlock">
+            <Setter Property= "Control.FontFamily" Value="{StaticResource mainFontFamily}" />
+            <Setter Property="Control.FontWeight" Value="Bold" />
+            <Setter Property="Control.FontSize" Value="13px"/>
+        </Style>
+
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontFamily" Value="{StaticResource mainFontFamily}"/>
+            <Setter Property="FontSize" Value="20px"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background"  Value="{StaticResource DarkBlue}"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="1" Padding="4,2" Background="{TemplateBinding Background}">
+                            <Grid >
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="content"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                                <Setter Property="Background" Value="{StaticResource LightBlue}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource DarkGray}"/>
+                            </Trigger>
+                            <Trigger Property="IsDefaulted" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#304e92" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="backButton" TargetType="Button" BasedOn="{StaticResource MenuButton}">
+            <Setter Property="Background" Value="{StaticResource DarkGray}"/>
+            <Setter Property="Height" Value="70"/>
+        </Style>
+    </Window.Resources>
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*" MinWidth="50"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column ="0"  Background="{StaticResource DarkBlue}"/>
+        <Border Grid.Column ="1"  Background="{StaticResource LightGray }"/>
+        <ScrollViewer  Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="spMenu" Grid.Column="1" Orientation="Vertical"  VerticalAlignment="Stretch" Margin="10,10,10,10">
+                <Button Name="BackButton" Visibility="Visible"  Click="back_Click" Style="{StaticResource backButton}" FontFamily="Segoe UI">Назад</Button>
+                <WrapPanel  Name="wpNavigation"  Margin="4">
+                    <TextBlock Text="Главное меню >>"  Style="{StaticResource navigationFont}"></TextBlock>
+                </WrapPanel>
+                <Button  Style="{StaticResource MenuButton}">Посетить государственные интернет-ресурсы</Button>
+                <!--<local:MessageControl Text="wswsdw" Margin="2"></local:MessageControl>-->
+            </StackPanel>
+        </ScrollViewer>
+        <Image  Grid.RowSpan="2" Source="pack://application:,,,/Icons/logo2.png" VerticalAlignment="Top" Margin="0,30,5,0"/>
+    </Grid>
+</Window>
